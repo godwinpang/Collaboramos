@@ -38,14 +38,12 @@ export class Firestore {
   // Read Account
   getAccount(id: string): Promise<any> {
     return this.firestore.collection('accounts').doc(id).ref.get().then(doc => {
-      console.log(doc);
       return doc.data();
     });
   }
 
   // Update Account
   updateAccount(id: string, model: Account): Promise<void> {
-    
     return this.firestore.collection('accounts').doc(id).update({
       first_name: model.first_name,
       last_name: model.last_name,
@@ -77,53 +75,54 @@ export class Firestore {
     const fileId = this.firestore.createId(); // generate a file ID
     const resumeId = this.firestore.createId(); // generate a file ID
     console.log(fileId, resumeId); // debugging purposes
-
-    this.filestorage.upload(fileId, model.image).then(() => {
-      return this.filestorage.ref(fileId).getDownloadURL();
-    }).then(imageObservable => {
-      return this.filestorage.upload(resumeId, model.resume_URL).then(() => {
-        return this.filestorage.ref(resumeId).getDownloadURL();
-      }).then(resumeObservable => {
-        imageObservable.subscribe(imageURL => {
-          resumeObservable.subscribe(resumeURL => {
-            console.log(imageURL, resumeURL);
-            this.firestore.doc(`candidate_profiles/${id}`).set({
-              id: id,
-              name: model.name,
-              image: imageURL,
-              website: model.website,
-              resume_URL: resumeURL,
-              is_visible: model.is_visible,
-              skills: model.skills,
-              description: model.description,
-              phone_number: model.phone_number,
-              email: model.email,
-              address: model.address
-            });
-            this.firestore.doc(`accounts/${accountId}`).update({
-              candidate_ref: this.firestore.doc(`candidate_profiles/${id}`).ref
-            });
-          });
-        });
-      });
-    });
-
+    var resumeURL: string = "";
+    var imageURL: string = "";
     var emptyMap: {[key: string]: string} = {};
 
-    this.firestore.doc(`matches/${fileId}`).set({
-      matched: emptyMap
-    });
-
-    this.firestore.doc(`interests/${fileId}`).set({
-      id: fileId,
-      list_type: "project",
-      interest_list: []
-    })
-
-    return this.firestore.doc(`match_queries/${fileId}`).set({
-      id: fileId,
-      list_type: "project",
-      queried_list: []
+    return this.filestorage.upload(fileId, model.image).then (_ => {
+      return this.filestorage.upload(resumeId, model.resume_URL);
+    }).then (_ => {
+      return this.filestorage.ref(fileId).getDownloadURL().toPromise(); // returns imageObservable
+    }).then ( url => {
+      imageURL = url;
+    }).then (() => {
+      return this.filestorage.ref(resumeId).getDownloadURL().toPromise(); // returns resumeObservable
+    }).then ( url => {
+      resumeURL = url;
+    }).then (resumeObservable => {
+      return this.firestore.doc(`candidate_profiles/${id}`).set({
+        id: id,
+        name: model.name,
+        image: imageURL,
+        website: model.website,
+        resume_URL: resumeURL,
+        is_visible: model.is_visible,
+        skills: model.skills,
+        description: model.description,
+        phone_number: model.phone_number,
+        email: model.email,
+        address: model.address
+      });
+    }).then (_ => {
+      return this.firestore.doc(`accounts/${accountId}`).update({
+        candidate_ref: this.firestore.doc(`candidate_profiles/${id}`).ref
+      });
+    }).then (_ => {
+      return this.firestore.doc(`matches/${id}`).set({
+        matched: emptyMap
+      });
+    }).then (_ => {
+      return this.firestore.doc(`interests/${id}`).set({
+        id: id,
+        list_type: "project",
+        interest_list: []
+      });
+    }).then (_ => {
+      return this.firestore.doc(`match_queries/${id}`).set({
+        id: id,
+        list_type: "project",
+        queried_list: []
+      });
     });
   }
 
@@ -191,47 +190,44 @@ export class Firestore {
   createProjectProfile(accountId: string, model: Project) {
     const id = this.firestore.createId(); // generate an ID
     const fileId = this.firestore.createId(); // generate a file ID
-    console.log(fileId); // debugging purposes
-
-    this.filestorage.upload(fileId, model.image).then(() => {
-      return this.filestorage.ref(fileId).getDownloadURL();
-    }).then(imageObservable => {
-      imageObservable.subscribe(imageURL => {
-        this.firestore.doc(`project_profiles/${id}`).set({
-          id: id,
-          name: model.name,
-          image: imageURL,
-          website: model.website,
-          is_visible: model.is_visible,
-          frameworks: model.frameworks,
-          skills: model.skills,
-          description: model.description,
-          phone_number: model.phone_number,
-          email: model.email,
-          address: model.address
-        });
-        this.firestore.doc(`accounts/${accountId}`).update({
-          project_ref: this.firestore.doc(`project_profiles/${id}`).ref
-        });
-      });
-    });
-
     var emptyMap: {[key: string]: string} = {};
 
-    this.firestore.doc(`matches/${fileId}`).set({
-      matched: emptyMap
-    });
-
-    this.firestore.doc(`interests/${fileId}`).set({
-      id: fileId,
-      list_type: "candidate",
-      interest_list: []
-    })
-
-    return this.firestore.doc(`match_queries/${fileId}`).set({
-      id: fileId,
-      list_type: "candidate",
-      queried_list: []
+    return this.filestorage.upload(fileId, model.image).then(_ => {
+        return this.filestorage.ref(fileId).getDownloadURL().toPromise();
+    }).then( url => {
+        return this.firestore.doc(`project_profiles/${id}`).set({
+            id: id,
+            name: model.name,
+            image: url,
+            website: model.website,
+            is_visible: model.is_visible,
+            frameworks: model.frameworks,
+            skills: model.skills,
+            description: model.description,
+            phone_number: model.phone_number,
+            email: model.email,
+            address: model.address
+        });
+    }).then(_ => {
+        return this.firestore.doc(`accounts/${accountId}`).update({
+            project_ref: this.firestore.doc(`project_profiles/${id}`).ref
+        });
+    }).then(_ => {
+        return this.firestore.doc(`matches/${id}`).set({
+            matched: emptyMap
+        });
+    }).then(_ => {
+        return this.firestore.doc(`interests/${id}`).set({
+            id: id,
+            list_type: "candidate",
+            interest_list: []
+        })
+    }).then(_ => {
+        this.firestore.doc(`match_queries/${id}`).set({
+            id: id,
+            list_type: "candidate",
+            queried_list: []
+        });
     });
   }
 
@@ -418,9 +414,9 @@ export class Firestore {
       })
 
       //console.log(documentsAndList[1]);
-      this.firestore.collection('match_queries').doc(id).update({
-        queried_list: documentsAndList[1]
-      })
+      // this.firestore.collection('match_queries').doc(id).update({
+      //   queried_list: documentsAndList[1]
+      // })
 
       //console.log(newDocuments);
       return newDocuments;
