@@ -355,6 +355,13 @@ export class Firestore {
     });
   }
 
+  // Reset queried_list
+  resetQueriedList(id: string): Promise<void> {
+    return this.firestore.collection('match_queries').doc(id).update({
+      queried_list: []
+    });
+  }
+
   // Get Project Cards
   getCards(id: string, amount: number): Promise<any> {
     var cards: any[];
@@ -362,7 +369,7 @@ export class Firestore {
       var list: string[];
       list = doc.data().queried_list;
       list.sort;
-
+      //console.log(list);
       //var documents: {[key: string]: DocumentData;} = {}; 
       var documents = [];
       if (doc.data().list_type == "project") {
@@ -400,6 +407,7 @@ export class Firestore {
               documents.push(doc.data());
             }            
           });
+          //console.log("hi");
           //console.log(documents);
           return [documents, list];
         });
@@ -408,15 +416,16 @@ export class Firestore {
       //console.log(documents.length);
       //console.log(documents);
       var newDocuments = documentsAndList[0].splice(0, amount);
-
+      //console.log(amount);
+      //console.log(documentsAndList[0]);
       newDocuments.forEach(doc => {
         documentsAndList[1].push(doc.id);
       })
 
       //console.log(documentsAndList[1]);
-      // this.firestore.collection('match_queries').doc(id).update({
-      //   queried_list: documentsAndList[1]
-      // })
+      this.firestore.collection('match_queries').doc(id).update({
+         queried_list: documentsAndList[1]
+      })
 
       //console.log(newDocuments);
       return newDocuments;
