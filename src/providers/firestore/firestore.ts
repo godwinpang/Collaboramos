@@ -5,6 +5,7 @@ import { Candidate, Project, Account, Channel, Message } from '../../models';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { tap, finalize, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { checkAndUpdateElementInline } from '@angular/core/src/view/element';
 
 /*
   Generated class for the FirestoreProvider provider.
@@ -334,24 +335,43 @@ export class Firestore {
 
   // Update Matches
   updateMatches(id1: string, image1: string, id2: string, image2: string) {
-    this.firestore.collection('matches').doc(id1).ref.get().then(doc => {
-      return doc.data().matched;
-    }).then(matched => {
-      console.log(matched);
-      matched[id2] = image2;
-      console.log(matched);
-      return this.firestore.collection('matches').doc(id1).update({
-        matched: matched
+    console.log("hello");
+    this.firestore.collection('interests').doc(id1).update({
+      interest_list: firebase.firestore.FieldValue.arrayUnion(id2)
+    }).then(_ => {
+      return this.firestore.collection('interests').doc(id2).ref.get().then(doc => {
+        var interestListOfId2: Array<String>;
+        interestListOfId2 = doc.data().interest_list;
+        var found = false;
+        interestListOfId2.forEach(id => {
+          if (id == id1) {
+            found = true;
+          }
+        });
+        return found;
       });
-    });
-    
-    this.firestore.collection('matches').doc(id2).ref.get().then(doc => {
-      return doc.data().matched;
-    }).then(matched => {
-      matched[id1] = image1;
-      return this.firestore.collection('matches').doc(id2).update({
-        matched: matched
-      });
+    }).then(isMatch => {
+        if (isMatch) {
+          this.firestore.collection('matches').doc(id1).ref.get().then(doc => {
+            return doc.data().matched;
+          }).then(matched => {
+            console.log(matched);
+            matched[id2] = image2;
+            console.log(matched);
+            return this.firestore.collection('matches').doc(id1).update({
+              matched: matched
+            });
+          }).then(_ => {
+            this.firestore.collection('matches').doc(id2).ref.get().then(doc => {
+              return doc.data().matched;
+            }).then(matched => {
+              matched[id1] = image1;
+              return this.firestore.collection('matches').doc(id2).update({
+                matched: matched
+              });
+            });
+          })
+        }
     });
   }
 
@@ -359,6 +379,20 @@ export class Firestore {
   resetQueriedList(id: string): Promise<void> {
     return this.firestore.collection('match_queries').doc(id).update({
       queried_list: []
+    });
+  }
+
+  // Reset matches
+  resetMatches(id: string): Promise<void> {
+    return this.firestore.collection('matches').doc(id).update({
+      matched: {}
+    });
+  }
+
+  // Reset interests
+  resetInterests(id: string): Promise<void> {
+    return this.firestore.collection('interests').doc(id).update({
+      interest_list: []
     });
   }
 
