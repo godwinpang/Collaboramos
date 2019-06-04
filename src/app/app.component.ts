@@ -121,6 +121,16 @@ export class MyApp {
     }
   }
 
+  createCandidate() {
+    this.nav.push("CreateCandidatePage", {account: this.account});
+    this.closeMenu();
+  }
+
+  createProject() {
+    this.nav.push("CreateProjectPage", {account: this.account});
+    this.closeMenu();
+  }
+
   closeMenu() {
     //closes the left side menu
     this.menuCtrl.close();
@@ -129,7 +139,7 @@ export class MyApp {
 
   changePage(item) {
     //change page and close menu for certain menu actions
-    this.nav.setRoot(item.component);
+    this.nav.push(item.component);
     this.closeMenu();
   }
 
