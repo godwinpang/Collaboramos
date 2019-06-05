@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FirebaseApp } from 'angularfire2';
 import { Firestore } from '../../providers/firestore/firestore'
 import { Candidate, Account } from '../../models';
+import { MyApp } from '../../app/app.component';
 
 /**
  * Generated class for the ProfilePage page.
@@ -21,7 +22,7 @@ import { Candidate, Account } from '../../models';
 })
 export class ProfileCandidatePage {
 
-  private account: Account;
+  private account: any;
   private profile: Candidate;
   private tempProfile: Candidate;
 
@@ -39,12 +40,22 @@ export class ProfileCandidatePage {
               private imagePicker: ImagePicker,
               private inAppBrowser: InAppBrowser,
               private firestore: Firestore,
-              private menuCtrl: MenuController) {
+              private menuCtrl: MenuController,
+              public appCom: MyApp) {
     this.isEdit = false;
     this.hasImage = false;
-    this.account = navParams.get('account');
-    this.profile = this.copyCandidateProfile(navParams.get('candidateProfile'));
-    this.tempProfile = this.copyCandidateProfile(navParams.get('candidateProfile'));
+      this.account = navParams.get('account');
+      if (this.account == null) {
+          console.log("OOps from candidate");
+          this.account = this.appCom.getAccount();
+          this.profile = this.appCom.getCandidateProfile();
+          this.tempProfile = this.copyCandidateProfile(this.profile);
+          console.log(this.profile);
+      }
+      else {
+          this.profile = this.copyCandidateProfile(navParams.get('candidateProfile'));
+          this.tempProfile = this.copyCandidateProfile(navParams.get('candidateProfile'));
+      }
     this.populateProfileFromAccount(this.profile, this.account);
     this.populateProfileFromAccount(this.tempProfile, this.account);
   }

@@ -21,7 +21,7 @@ import { MyApp } from '../../app/app.component';
 })
 export class ProfileProjectPage {
 
-  private account: Account;
+  private account: any;
   private profile: Project;
   private tempProfile: Project;
 
@@ -41,9 +41,18 @@ export class ProfileProjectPage {
               public appCom: MyApp) {
     this.isEdit = false;
     this.hasImage = false;
-    this.account = navParams.get('account');
-    this.profile = this.copyProjectProfile(navParams.get('projectProfile'));
-    this.tempProfile = this.copyProjectProfile(navParams.get('projectProfile'));
+      this.account = navParams.get('account');
+      if (this.account == null) {
+          console.log("OOps from project");
+          this.account = this.appCom.getAccount();
+          this.profile = this.appCom.getProjectProfile();
+          this.tempProfile = this.copyProjectProfile(this.profile);
+          console.log(this.profile);
+      }
+      else {
+          this.profile = this.copyProjectProfile(navParams.get('projectProfile'));
+          this.tempProfile = this.copyProjectProfile(navParams.get('projectProfile'));
+      }
     this.populateProfileFromAccount(this.profile, this.account);
     this.populateProfileFromAccount(this.tempProfile, this.account);
   }

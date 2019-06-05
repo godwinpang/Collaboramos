@@ -123,13 +123,13 @@ export class MyApp {
   }
 
   createCandidate() {
-    this.nav.push("CreateCandidatePage", {account: this.account});
-    this.closeMenu();
+      this.nav.push("CreateCandidatePage", { account: this.account });
+      this.closeMenu();
   }
 
   createProject() {
-    this.nav.push("CreateProjectPage", {account: this.account});
-    this.closeMenu();
+      this.nav.push("CreateProjectPage", { account: this.account });
+      this.closeMenu();
   }
 
   closeMenu() {
@@ -215,13 +215,25 @@ export class MyApp {
     this.account = acc;
   }
 
+  public getAccount() {
+      return this.account;
+  }
+
   setCandidateProfile(candidate: Candidate) {
     this.candidate = candidate;
   }
 
+    public getCandidateProfile() {
+        return this.candidate;
+    }
+
   setProjectProfile(proj: Project) {
     this.project= proj;
-  }
+    }
+
+    public getProjectProfile() {
+        return this.project;
+    }
 
   setCandidateProfileRef(ref: DocumentReference) {
     this.projectRef = ref;
@@ -231,7 +243,7 @@ export class MyApp {
     this.candidateRef = ref;
   }
 
-  setCurrentProfile(profile: string) {
+  public setCurrentProfile(profile: string) {
     this.currentProfile = profile;
 
     if(profile === 'project') {

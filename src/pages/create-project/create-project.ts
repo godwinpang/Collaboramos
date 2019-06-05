@@ -150,8 +150,14 @@ export class CreateProjectPage {
     }).then(_ => {
       params['currentProfile'] = 'project';
       loading.dismiss();
-      console.log(params);
-      this.navCtrl.setRoot("TabsPage", params);
+        if (params["candidateProfile"] != null) {
+            console.log("enter navCtrl Proj");
+            this.navCtrl.push("TabsPage", params);
+        }
+        else {
+            this.navCtrl.setRoot("TabsPage", params);
+        }
+      
     });
   }
 

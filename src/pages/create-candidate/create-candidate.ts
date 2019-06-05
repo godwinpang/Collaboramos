@@ -179,7 +179,13 @@ export class CreateCandidatePage {
     }).then(_ => {
       params['currentProfile'] = "candidate";
       loading.dismiss();
-      this.navCtrl.setRoot("TabsPage", params);
+        if (params["projectProfile"] != null) {
+            console.log("enter navCtrl Cand");
+            this.navCtrl.push("TabsPage", params);
+        }
+        else {
+            this.navCtrl.setRoot("TabsPage", params);
+        }
     });
   }
 
