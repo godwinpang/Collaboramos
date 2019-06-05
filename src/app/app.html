@@ -16,7 +16,7 @@
 
       <!-- div to show in edit mode -->
       <div *ngIf="isEdit" class = "centerParent" style="background-color: #AAABDC">
-        <button *ngIf="project" ion-item detail-none text-center color=danger (click) = "deleteProject()" >
+        <button *ngIf="project" ion-item detail-none text-center color=danger (click) = "promptDelete(true)" >
           <ion-icon float-left name="close"></ion-icon>
           {{project.name}}
         </button>
@@ -30,7 +30,7 @@
           <ion-toggle [(ngModel)]="project.is_visible" (ionChange)="notify(true)"></ion-toggle>
         </ion-item>
 
-        <button *ngIf="candidate" class="candidateButton" ion-item detail-none text-center color=danger (click) = "deleteCandidate()">
+        <button *ngIf="candidate" class="candidateButton" ion-item detail-none text-center color=danger (click) = "promptDelete(false)">
           <ion-icon float-left name="close"></ion-icon>
           {{candidate.name}}
         </button>

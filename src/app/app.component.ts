@@ -151,7 +151,7 @@ export class MyApp {
     })
   }
   
-  promptDelete(profileType) {
+  promptDelete(isProject: boolean) {
     //bring up a prompt to delete profile
     let alert = this.alertCtrl.create({
       title: 'Delete Profile',
@@ -168,6 +168,11 @@ export class MyApp {
           text: 'Delete',
           handler: () => {
             // this.profileDelete(profileType);
+            if(isProject) {
+              this.deleteProject();
+            } else if(!isProject) {
+              this.deleteCandidate();
+            }
           }
         }
       ]
