@@ -69,6 +69,7 @@ export class HomeProjectComponent {
             }
         };
         
+        console.log(this.navParams.get('account'));
         this.profile = this.navParams.get('projectProfile');
         this.cards = [];
         this.addNewCards(3);
@@ -133,11 +134,14 @@ export class HomeProjectComponent {
     // Add new cards to our array
     addNewCards(count: number) {
         console.log("Added new cards");
+        console.log(this.navParams.get('account'));
+        console.log(this.profile);
         this.firestore.getCards(this.profile.id, count).then(map => {
             map.forEach((value: any, key: any) => {
                 this.cards.push(value)
                 this.tags.push(value.skills)
                 console.log("key: " + key)
+                console.log("value: " + value);
 
             })
         })

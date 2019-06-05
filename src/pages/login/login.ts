@@ -89,6 +89,7 @@ export class LoginPage {
   }
 
   getSelectedProfile(params) {
+    console.log(params);
     if (params['projectProfile'] != null) {
       return 'project';
     } else if (params['candidateProfile'] != null) {

@@ -43,20 +43,22 @@ export class TabsPage {
       this.navCtrl.setRoot("CreateProfilePage", this.params);
     }
 
-    events.subscribe('currentProfile', (s) => {
+    events.subscribe('profileUpdate', (s) => {
       // user and time are the same arguments passed in `events.publish(user, time)`
       console.log('receive broadcast current profile' + s);
-      if (s === "candidate") {
+      if (s['currentProfile'] === "candidate") {
         console.log('current profile: Candidate');
         this.tab1Root = Tab1RootC;
         this.tab2Root = Tab2RootC;
         this.params["data"]["currentProfile"] = "candidate";
+        this.params['data']['candidateProfile'] = s['candidateProfile']
       }
-      else if (s === "project") {
+      else if (s['currentProfile'] === "project") {
         console.log('current profile: Project');
         this.tab1Root = Tab1RootP;
         this.tab2Root = Tab2RootP;
         this.params["data"]["currentProfile"] = "project";
+        this.params['data']['projectProfile'] = s['projectProfile'];
       }
       // setRoot
       else {

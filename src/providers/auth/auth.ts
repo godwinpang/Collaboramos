@@ -19,4 +19,8 @@ export class Auth {
     login(credentials) {
         return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password);
     }
+
+    logout() {
+        return this.afAuth.auth.signOut();
+    }
 }

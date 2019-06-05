@@ -111,8 +111,9 @@ export class HomeCandidateComponent {
 
   // Add new cards to our array
   addNewCards(count: number) {
+    console.log(this.navParams.get('account'));
     this.firestore.getCards(this.profile.id, count).then(map => {
-        console.log(map.entries())
+        console.log(map);
         map.forEach((value: any, key: any) => {
             this.cards.push(value)
             this.tags.push(value.skills)

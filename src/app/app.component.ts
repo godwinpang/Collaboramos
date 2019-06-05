@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Nav, Platform, MenuController, AlertController, Events } from 'ionic-angular';
 
 import { FirstRunPage } from '../pages';
-import { Settings } from '../providers';
+import { Settings, Auth } from '../providers';
 
 import { Firestore } from '../providers/firestore/firestore';
 import { Project, Candidate } from '../models';
@@ -82,7 +82,8 @@ export class MyApp {
               private menuCtrl: MenuController,
               private alertCtrl: AlertController,
               private firestore: Firestore,
-              private events: Events) {
+              private events: Events,
+              private auth: Auth) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -143,6 +144,13 @@ export class MyApp {
     this.closeMenu();
   }
 
+  logout() {
+    this.resetState();
+    this.auth.logout().then(_=>{
+      this.nav.setRoot("WelcomePage");
+      this.closeMenu();
+    })
+  }
   
   promptDelete(profileType) {
     //bring up a prompt to delete profile
@@ -190,6 +198,15 @@ export class MyApp {
     }
   }
 
+  resetState() {
+    this.account = null;
+    this.candidate = null;
+    this.project = null;
+    this.candidateRef = null;
+    this.projectRef = null;
+    this.currentProfile = "";
+  }
+
   setEdit(edit: boolean) {
     this.isEdit = edit;
   }
@@ -229,11 +246,15 @@ export class MyApp {
   }
 
   candidatePublishEvents() {
+    let data = {currentProfile: 'candidate', candidateProfile: this.candidate};
     this.events.publish('currentProfile', 'candidate');
+    this.events.publish('profileUpdate', data);
   }
 
   projectPublishEvents() {
+    let data = {currentProfile: 'project', projectProfile: this.project};
     this.events.publish('currentProfile', 'project');
+    this.events.publish('profileUpdate', data);
   }
 
 }
