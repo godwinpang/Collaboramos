@@ -13,7 +13,7 @@
       <ion-list-header>Today</ion-list-header>
       <ion-item *ngFor="let key of matchesKeys" (click)="viewProfile(key)" style="background-color: #e5eef6;">
         <ion-avatar item-start>
-          <!---<img [src]="match.imageUrl">-->
+          <img [src]="getImage(key)">
         </ion-avatar>
         <h2>{{names.get(key)}}</h2>
         <h2>{{matches[key]}}</h2>
