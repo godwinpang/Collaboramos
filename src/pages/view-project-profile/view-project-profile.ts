@@ -65,77 +65,10 @@ export class ViewProjectProfilePage {
     };
   }
 
-  populateProfileFromAccount(profile: Project, account: Account) {
-    profile.email = account.email;
-    profile.phone_number = account.phone_number;
-    profile.address = account.address;
-  }
-
-  setIsEdit(isEdit: boolean, discard: boolean) {
-    this.isEdit = isEdit;
-    if (!isEdit) {
-      if (!discard){
-        // actually upload stuff
-        this.profile = this.copyProjectProfile(this.tempProfile);
-        this.firestore.updateProjectProfile(this.profile);
-      } else {
-        this.tempProfile = this.copyProjectProfile(this.profile);
-      }
-    }
-  }
-
-  deleteSkill(skill: string){
-    var newSkills=[];
-    for(var i=0;i<this.tempProfile.skills.length;i++){
-      if(this.tempProfile.skills[i] != skill){
-        newSkills.push(this.tempProfile.skills[i]);
-      }
-    }
-    this.tempProfile.skills = newSkills;
-  }
-
-  deleteFramework(framework: string){
-    var newFrameworks=[];
-    for(var i=0;i<this.tempProfile.frameworks.length;i++){
-      if(this.tempProfile.frameworks[i] != framework){
-        newFrameworks.push(this.tempProfile.frameworks[i]);
-      }
-    }
-    this.tempProfile.frameworks = newFrameworks;
-  }
-
-  pickImage() {
-    /*let options = {
-      maximumImagesCount: 1,
-      outputType: 0,
-      width: 800,
-      height: 800
-    }*/
-    this.imageInput.nativeElement.click();
-
-  }
-   
-  processWebImage(event) {
-    let reader = new FileReader();
-    reader.onload = (readerEvent) => {
-
-      let imageData = (readerEvent.target as any).result;
-      this.image = imageData;
-      this.hasImage = true;
-    };
-    let imageD = event.target.files[event.target.files.length - 1];
-    this.tempProfile.image = imageD;
-    console.log(imageD);
-    reader.readAsDataURL(event.target.files[0]);
-  }
-
-  getSize() {
-    return '100px 100px'
-  }
 
   getProfileImageStyle() {
     //return 'url(' + this.form.controls['profilePic'].value + ')'
-    return 'url(' + this.image + ')';
+    return this.profile.image;
   }
 
 

@@ -65,7 +65,12 @@ export class ViewCandidateProfilePage {
       email: profile.email,
       website: profile.website
     };
-  }
+    }
+
+    getProfileImageStyle() {
+        //return 'url(' + this.form.controls['profilePic'].value + ')'
+        return this.profile.image;
+    }
 /*
   populateProfileFromAccount(profile: Candidate, account: Account) {
     profile.email = account.email;
