@@ -8,13 +8,15 @@
 <ion-content class="chats" style="background-color: #e5eef6;">
   <ion-list>
     <ion-list-header>Today</ion-list-header>
-    <ion-item *ngFor="let chat of chats | async" (click)="viewMessages(chat)" style="background-color: #e5eef6">
+    <ion-item *ngFor="let chat of chats" (click)="viewMessages(chat)" style="background-color: #e5eef6">
       <ion-avatar item-start>
         <img [src]="chat.imageUrl">
       </ion-avatar>
-      <h2>{{chat.last_message_sender}}</h2>
+      <h2>{{names.get(chat)}}</h2>
       <p>{{chat.last_message_sent}}</p>
-      <ion-note item-end>{{chat.last_message_date.toDate() | moment:"hh:mm a" | lowercase}}</ion-note>
+      <div *ngIf="chat.last_message_date !== null">
+        <ion-note item-end>{{chat.last_message_date.toDate() | moment:"hh:mm a" | lowercase}}}</ion-note>
+      </div>
     </ion-item>
   </ion-list>
   <!---

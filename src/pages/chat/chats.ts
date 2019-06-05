@@ -31,6 +31,13 @@ export class ChatsPage {
 
   public chats;
   public profileId;
+  public matchesKeys;
+  public matches;
+  public names = new Map();
+  public images = new Map();
+  public idToChat = new Map();
+  public members;
+  public otherId;
 
   constructor(public navCtrl: NavController, private firestore: Firestore, public navParams: NavParams) {
     console.log(this.navParams);
@@ -39,7 +46,40 @@ export class ChatsPage {
     }else{
       this.profileId = this.navParams.get('candidateProfile').id;
     }
-    this.chats = this.firestore.getChannelsFromProfile(this.profileId).valueChanges();
+    //this.chats = this.firestore.getChannelsFromProfile(this.profileId).valueChanges();
+    //get channels
+    this.firestore.getChannelsFromProfile(this.profileId).valueChanges().subscribe( chats => {
+      this.chats = chats;
+      //give mapping from otherId to chats/channel
+      var i = 0;
+      for (i = 0; i < chats.length; i++){
+        this.members = chats[i].members;
+        this.otherId = (this.members[1] == this.profileId) ? this.members[0] : this.members[1];
+        this.idToChat.set(this.otherId,chats[i]);
+        //console.log(this.names.get(chats[i]));
+      }
+      //get matches to get names
+      this.firestore.getMatchesFromProfile(this.profileId).valueChanges().subscribe( matches => {
+        this.matchesKeys = Object.keys(matches.matched);
+        this.matches = matches.matched;
+        //get names and map to channel
+        if(this.navParams.get('currentProfile') == "project"){
+          this.matchesKeys.forEach(element => {
+            this.firestore.getCandidateProfileFromID(element).then(candidate =>
+              {this.names.set(this.idToChat.get(element), candidate.name)});
+          });  
+        }else{
+          this.matchesKeys.forEach(element => {
+            this.firestore.getProjectProfileFromID(element).then(project =>
+              {this.names.set(this.idToChat.get(element), project.name)});
+          });
+        }
+        //console.log(this.matchesKeys);
+        //console.log(this.matches);
+        //console.log(this.names);
+        //console.log(this.idToChat);
+      });
+    });
   }
 
   viewMessages(chat) {
