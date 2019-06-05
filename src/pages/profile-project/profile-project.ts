@@ -82,7 +82,8 @@ export class ProfileProjectPage {
         this.profile = this.copyProjectProfile(this.tempProfile);
         this.firestore.updateProjectProfile(this.profile);
       } else {
-        this.tempProfile = this.copyProjectProfile(this.profile);
+          this.tempProfile = this.copyProjectProfile(this.profile);
+          this.hasImage = false;
       }
     }
   }
@@ -141,6 +142,9 @@ export class ProfileProjectPage {
     return 'url(' + this.image + ')';
   }
 
+  getImageSource() {
+     return this.profile.image;
+  }
 
   presentWebsite() {
     this.inAppBrowser.create(this.profile.website);
