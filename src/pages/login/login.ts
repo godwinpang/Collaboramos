@@ -95,6 +95,12 @@ export class LoginPage {
     }).then ( candidateProfile => {
       params['candidateProfile'] = candidateProfile;
       this.appCom.setCandidateProfile(candidateProfile);
+    }).then(_ => {
+      if (params['currentProfile'] == 'candidate') {
+        return this.firestore.resetQueriedList(params['account'].candidate_ref);
+      } else {
+        return this.firestore.resetQueriedList(params['account'].project_ref);
+      }
     }).then( _ => {
       params['currentProfile'] = this.getSelectedProfile(params);
       this.appCom.setCurrentProfile(this.getSelectedProfile(params));
