@@ -116,9 +116,9 @@
           <p><b>Phone</b></p>
       </ion-col>
       <ion-col>
-        <ion-label *ngIf="!isEdit" class="info-label">{{ profile.phone }}</ion-label>
+        <ion-label *ngIf="!isEdit" class="info-label">{{ profile.phone_number }}</ion-label>
         <ion-item *ngIf="isEdit" >
-          <ion-input class="input-from-label" [(ngModel)]="tempProfile.phone" type="tel"></ion-input>
+          <ion-input class="input-from-label" [(ngModel)]="tempProfile.phone_number" type="tel"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
