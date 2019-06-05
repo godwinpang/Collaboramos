@@ -257,6 +257,18 @@ export class MyApp {
     }
   }
 
+  public setCurrentProfileWOPublish(profile: string) {
+    this.currentProfile = profile;
+
+    if(profile === 'project') {
+      this.projectColor = "project_banner";
+      this.candidateColor = "nop";
+    } else if(profile === 'candidate') {
+      this.projectColor = "nop";
+      this.candidateColor = "candy_banner";
+    }
+  }
+
   candidatePublishEvents() {
     let data = {currentProfile: 'candidate', candidateProfile: this.candidate};
     this.events.publish('currentProfile', 'candidate');
