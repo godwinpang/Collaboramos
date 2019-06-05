@@ -175,7 +175,7 @@ export class CreateCandidatePage {
       }
     }).then(candidateProfile => {
       params['candidateProfile'] = candidateProfile;
-      this.appCom.setCandidateProfile = candidateProfile;
+      this.appCom.setCandidateProfile(candidateProfile);
     }).then(_ => {
       params['currentProfile'] = "candidate";
       loading.dismiss();
