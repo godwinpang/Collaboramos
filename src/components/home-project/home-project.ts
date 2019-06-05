@@ -85,12 +85,20 @@ export class HomeProjectComponent {
     }
 
     clickResume(c: any) {
-        this.inAppBrowser.create(c.website);
+        console.log(c.resume_URL);
+        if (c.resume_URL != null && c.resume_URL != ""
+            && c.resume_URL[0] == "h") {
+            this.inAppBrowser.create(c.resume_URL);
+        }
         
     }
 
     clickWebsite(c: any) {
-        this.inAppBrowser.create(c.resume_URL);
+        console.log(c.website);
+        if (c.website != null && c.website != ""
+            && c.website[0] == "h") {
+            this.inAppBrowser.create(c.website);
+        }
     }
 
     // Called whenever we drag an element
