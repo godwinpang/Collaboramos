@@ -82,7 +82,9 @@ export class ProfileCandidatePage {
         this.profile = this.copyCandidateProfile(this.tempProfile);
         this.firestore.updateCandidateProfile(this.profile);
       } else {
-        this.tempProfile = this.copyCandidateProfile(this.profile);
+          this.tempProfile = this.copyCandidateProfile(this.profile);
+          //this.image = this.profile.image;
+          this.hasImage = false;
       }
     }
   }
@@ -116,7 +118,7 @@ export class ProfileCandidatePage {
       this.image = imageData;
       this.hasImage = true;
     };
-    let imageD = event.target.files[event.target.files.length - 1];
+    let imageD = event.target.files[0];
     this.tempProfile.image = imageD;
     console.log(imageD);
     reader.readAsDataURL(event.target.files[0]);
@@ -153,6 +155,10 @@ export class ProfileCandidatePage {
   getProfileImageStyle() {
     //return 'url(' + this.form.controls['profilePic'].value + ')'
     return 'url(' + this.image + ')';
+    }
+
+  getImageSource() {
+      return this.profile.image;
   }
 
   presentWebsite() {
