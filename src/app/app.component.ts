@@ -8,7 +8,6 @@ import { Settings, Auth } from '../providers';
 
 import { Firestore } from '../providers/firestore/firestore';
 import { Project, Candidate } from '../models';
-import { Subscription } from 'rxjs';
 import { DocumentReference } from 'angularfire2/firestore';
 //import { CreateProjectPage } from '../pages/create-project/create-project';
 
@@ -152,7 +151,7 @@ export class MyApp {
     })
   }
   
-  promptDelete(profileType) {
+  promptDelete(isProject: boolean) {
     //bring up a prompt to delete profile
     let alert = this.alertCtrl.create({
       title: 'Delete Profile',
@@ -169,6 +168,11 @@ export class MyApp {
           text: 'Delete',
           handler: () => {
             // this.profileDelete(profileType);
+            if(isProject) {
+              this.deleteProject();
+            } else if(!isProject) {
+              this.deleteCandidate();
+            }
           }
         }
       ]

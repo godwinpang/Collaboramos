@@ -180,13 +180,13 @@ export class ProfileCandidatePage {
     this.inAppBrowser.create(this.profile.website);
   }
 
-    presentResume() { 
-        console.log(this.profile.resume_URL);
-        if (this.profile.resume_URL != null && this.profile.resume_URL != ""
-            && this.profile.resume_URL[0] == "h") {
-            this.inAppBrowser.create(this.profile.resume_URL);
-        }
-    }
+  presentResume() { 
+      console.log(this.profile.resume_URL);
+      if (this.profile.resume_URL != null && this.profile.resume_URL != ""
+          && this.profile.resume_URL[0] == "h") {
+          this.inAppBrowser.create(this.profile.website);
+      }
+  }
 
   presentPrompt(){
     let myString: string = ""

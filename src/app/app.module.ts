@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -74,7 +75,8 @@ export function provideSettings(storage: Storage) {
     AngularFireAuth,
     ImagePicker,
     InAppBrowser,
-    Firestore
+    Firestore,
+    Keyboard
   ]
 })
 export class AppModule { }

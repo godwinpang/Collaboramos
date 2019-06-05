@@ -3,9 +3,7 @@ import { AngularFirestore, DocumentReference, AngularFirestoreCollection, Angula
 import * as firebase from 'firebase';
 import { Candidate, Project, Account, Channel, Message } from '../../models';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { tap, finalize, map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-import { checkAndUpdateElementInline } from '@angular/core/src/view/element';
+// import { checkAndUpdateElementInline } from '@angular/core/src/view/element';
 
 /*
   Generated class for the FirestoreProvider provider.
