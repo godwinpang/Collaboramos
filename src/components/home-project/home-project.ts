@@ -153,7 +153,7 @@ export class HomeProjectComponent {
 
     getSize() {
         return '84px 108px'
-      }
+    }
 
     // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
     decimalToHex(d, padding) {

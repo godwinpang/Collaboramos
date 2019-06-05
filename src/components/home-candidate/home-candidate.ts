@@ -127,6 +127,9 @@ export class HomeCandidateComponent {
     this.inAppBrowser.create(c.website);
   }
 
+  getImage(i: number) {
+    return "url(" + this.cards[i].image + ")";
+  }
 
   // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
   decimalToHex(d, padding) {
