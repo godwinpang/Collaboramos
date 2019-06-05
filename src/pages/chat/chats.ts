@@ -66,12 +66,16 @@ export class ChatsPage {
         if(this.navParams.get('currentProfile') == "project"){
           this.matchesKeys.forEach(element => {
             this.firestore.getCandidateProfileFromID(element).then(candidate =>
-              {this.names.set(this.idToChat.get(element), candidate.name)});
+              {{this.names.set(this.idToChat.get(element), candidate.name);
+                this.images.set(this.idToChat.get(element), candidate.image)
+              }});
           });  
         }else{
           this.matchesKeys.forEach(element => {
             this.firestore.getProjectProfileFromID(element).then(project =>
-              {this.names.set(this.idToChat.get(element), project.name)});
+              {{this.names.set(this.idToChat.get(element), project.name);
+                this.images.set(this.idToChat.get(element), project.image)
+              }});
           });
         }
         //console.log(this.matchesKeys);
@@ -84,5 +88,9 @@ export class ChatsPage {
 
   viewMessages(chat) {
     this.navCtrl.push('MessagesPage', { id: this.profileId});
+  }
+
+  getImage(chat){
+    return this.images.get(chat);
   }
 }

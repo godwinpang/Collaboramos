@@ -94,9 +94,9 @@ export class MatchesPage {
     //this.navCtrl.push('ViewProfilePage', { chatId: chat.id });
     }
 
-    getImage(key: string) {
-        return this.matches[key];
-    }
+  getImage(key: string) {
+    return this.matches[key];
+  }
 
   openMenu() {
     //have a variable that checks if edit was tapped; if was then would want to undo and reset colors
