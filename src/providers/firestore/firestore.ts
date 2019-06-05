@@ -140,35 +140,51 @@ export class Firestore {
     })
   }
 
+  uploadFile(id, file) {
+    console.log(file);
+    console.log(typeof file);
+    if (typeof file === "string"){
+      return Promise.resolve(null);
+    }
+    console.log('im out here');
+    return this.filestorage.upload(id, file).then(() =>{
+      return this.filestorage.ref(id).getDownloadURL().toPromise();
+    });
+  }
+
   // Update Candidate
   updateCandidateProfile(model: Candidate) {
     const fileId = this.firestore.createId(); // generate a file ID
     const resumeId= this.firestore.createId(); // generate a file ID
 
-    this.filestorage.upload(fileId, model.image).then(() => {
-      return this.filestorage.ref(fileId).getDownloadURL();
-    }).then(imageObservable => {
-      return this.filestorage.upload(resumeId, model.resume_URL).then(() => {
-        return this.filestorage.ref(resumeId).getDownloadURL();
-      }).then(resumeObservable => {
-        imageObservable.subscribe(imageURL => {
-          resumeObservable.subscribe(resumeURL => {
-            console.log(imageURL, resumeURL);
-            this.firestore.doc(`candidate_profiles/${model.id}`).update({
-              name: model.name,
-              image: imageURL,
-              website: model.website,
-              resumeURL: model.resume_URL,
-              is_visible: model.is_visible,
-              skills: model.skills,
-              description: model.description,
-              phone_number: model.phone_number,
-              email: model.email,
-              address: model.address
-            });
-          });
-        });
-      });
+    var resumeURL = '';
+    var imageURL = '';
+
+    return this.uploadFile(fileId, model.image).then(url => {
+      if (url != null){
+        imageURL = url;
+      } else {
+        imageURL = model.image;
+      }
+      return this.uploadFile(resumeId, model.resume_URL);
+    }).then(url => {
+      if (url != null){
+        resumeURL = url;
+      } else {
+        resumeURL = model.resume_URL;
+      }
+      this.firestore.doc(`candidate_profiles/${model.id}`).update({
+        name: model.name,
+        image: imageURL,
+        website: model.website,
+        resumeURL: resumeURL,
+        is_visible: model.is_visible,
+        skills: model.skills,
+        description: model.description,
+        phone_number: model.phone_number,
+        email: model.email,
+        address: model.address
+      });  
     });
   }
 
@@ -253,23 +269,25 @@ export class Firestore {
   updateProjectProfile(model: Project) {
     // Returns promise of success/failure for updating the project document on Firestore
     const fileId = this.firestore.createId(); // generate a file ID
+    var image_url = "";
 
-    this.filestorage.upload(fileId, model.image).then(() => {
-      return this.filestorage.ref(fileId).getDownloadURL();
-    }).then(imageObservable => {
-      imageObservable.subscribe(imageURL => {
-        this.firestore.doc(`project_profiles/${model.id}`).update({
-          name: model.name,
-          image: imageURL,
-          website: model.website,
-          is_visible: model.is_visible,
-          frameworks: model.frameworks,
-          skills: model.skills,
-          description: model.description,
-          phone_number: model.phone_number,
-          email: model.email,
-          address: model.address
-        });
+    return this.uploadFile(fileId, model.image).then(url => {
+      if (url != null){
+        image_url = url;
+      } else {
+        image_url = model.image;
+      }
+      this.firestore.doc(`project_profiles/${model.id}`).update({
+        name: model.name,
+        image: image_url,
+        website: model.website,
+        is_visible: model.is_visible,
+        frameworks: model.frameworks,
+        skills: model.skills,
+        description: model.description,
+        phone_number: model.phone_number,
+        email: model.email,
+        address: model.address
       });
     });
   }
