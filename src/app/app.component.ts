@@ -8,7 +8,6 @@ import { Settings, Auth } from '../providers';
 
 import { Firestore } from '../providers/firestore/firestore';
 import { Project, Candidate } from '../models';
-import { Subscription } from 'rxjs';
 import { DocumentReference } from 'angularfire2/firestore';
 //import { CreateProjectPage } from '../pages/create-project/create-project';
 

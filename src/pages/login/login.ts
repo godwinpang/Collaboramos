@@ -5,6 +5,8 @@ import { User, Auth, Firestore } from '../../providers';
 import { MainPage } from '../';
 import { MyApp } from '../../app/app.component';
 
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -19,14 +21,37 @@ export class LoginPage {
     password: ''
   };
 
+  private showFooter = true;
+
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
     private auth: Auth,
     private firestore: Firestore,
     private loadingCtrl: LoadingController,
-    private appCom: MyApp
-  ) {}
+    private appCom: MyApp,
+    public keyboard: Keyboard
+  ) { }
+
+  showListener() {
+    console.log('keyboard visible');
+    this.showFooter = false;
+  }
+  hideListener() {
+    console.log('keyboard hides');
+    this.showFooter = true;
+  }
+
+  ionViewDidEnter() {
+    console.log('ion view entered');
+    window.addEventListener('keyboardWillShow', this.showListener);
+    window.addEventListener('keyboardDidHide', this.hideListener);
+  }
+
+  ionViewWillLeave() {
+    window.removeEventListener('keyboardWillShow', this.showListener);
+    window.removeEventListener('keyboardDidHide', this.hideListener);
+  }
 
   cancel() {
     this.navCtrl.pop()
