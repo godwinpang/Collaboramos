@@ -5,7 +5,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { FirebaseApp } from 'angularfire2';
 import { Firestore } from '../../providers/firestore/firestore'
-import { Candidate, Account } from '../../models';
+import { Candidate, Account, Project } from '../../models';
 import { MyApp } from '../../app/app.component';
 
 /**
@@ -23,7 +23,7 @@ import { MyApp } from '../../app/app.component';
 export class ProfileCandidatePage {
 
   private account: any;
-  private profile: Candidate;
+  private profile: any;
   private tempProfile: Candidate;
 
   private isEdit: boolean;
@@ -43,12 +43,15 @@ export class ProfileCandidatePage {
               private menuCtrl: MenuController,
               public appCom: MyApp) {
     this.isEdit = false;
-    this.hasImage = false;
+      this.hasImage = false;
+      console.log("ProfileCandidate:");
+      console.log(navParams);
       this.account = navParams.get('account');
       if (this.account == null) {
           console.log("OOps from candidate");
           this.account = this.appCom.getAccount();
-          this.profile = this.appCom.getCandidateProfile();
+          this.profile = this.appCom.getProjectProfile();
+          navCtrl.setRoot("ProfileProjectPage", { account: this.account, projectProfile: this.profile });
           this.tempProfile = this.copyCandidateProfile(this.profile);
           console.log(this.profile);
       }
