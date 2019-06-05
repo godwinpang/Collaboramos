@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewChildren, QueryList, Renderer } from '@angula
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { MyApp } from '../../app/app.component';
 import 'rxjs/Rx';
 
 import {
@@ -55,7 +56,8 @@ export class HomeProjectComponent {
                 private http: Http, 
                 public renderer: Renderer, 
                 private firestore: Firestore,
-                private inAppBrowser: InAppBrowser
+                private inAppBrowser: InAppBrowser,
+                private appCom: MyApp
                 ) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -144,7 +146,9 @@ export class HomeProjectComponent {
         console.log("Added new cards");
         console.log(this.navParams.get('account'));
         console.log(this.profile);
-        this.firestore.getCards(this.profile.id, count).then(map => {
+        console.log("From appCom " + this.appCom.getProjectProfile())
+
+        this.firestore.getCards(this.appCom.getProjectProfile().id, count).then(map => {
             map.forEach((value: any, key: any) => {
                 this.cards.push(value)
                 this.tags.push(value.skills)
@@ -161,7 +165,7 @@ export class HomeProjectComponent {
 
     getSize() {
         return '84px 108px'
-      }
+    }
 
     // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
     decimalToHex(d, padding) {
