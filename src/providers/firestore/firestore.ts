@@ -391,6 +391,7 @@ export class Firestore {
           }).then(_ => {
             var channelId = this.firestore.createId();
             return this.firestore.doc(`channels/${channelId}`).set({
+              id: channelId,
               last_message_sent: "",
               last_message_sender: "",
               last_message_date: null,
@@ -402,9 +403,17 @@ export class Firestore {
   }
 
   // Reset queried_list
-  resetQueriedList(id: string): Promise<void> {
-    return this.firestore.collection('match_queries').doc(id).update({
-      queried_list: []
+  resetQueriedList(docRef: DocumentReference): Promise<void> {
+    return docRef.get().then(doc => {
+      return this.firestore.collection('interests').doc(doc.data().id).ref.get().then(interestsDoc => {
+        return interestsDoc.data().interest_list;
+      }).then(interests => {
+        console.log(interests);
+        console.log(doc.data().id);
+        return this.firestore.collection('match_queries').doc(doc.data().id).update({
+          queried_list: interests
+        });
+      });
     });
   }
 
@@ -425,6 +434,7 @@ export class Firestore {
   // Get Project Cards
   getCards(id: string, amount: number): Promise<any> {
     var cards: any[];
+    console.log("hello i am called");
     return this.firestore.collection('match_queries').doc(id).ref.get().then(doc => {
       var list: string[];
       list = doc.data().queried_list;
