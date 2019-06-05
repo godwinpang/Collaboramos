@@ -178,7 +178,7 @@ export class Firestore {
         name: model.name,
         image: imageURL,
         website: model.website,
-        resumeURL: resumeURL,
+        resume_URL: resumeURL,
         is_visible: model.is_visible,
         skills: model.skills,
         description: model.description,
