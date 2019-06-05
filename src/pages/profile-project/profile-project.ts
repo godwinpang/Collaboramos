@@ -47,9 +47,9 @@ export class ProfileProjectPage {
       if (this.account == null) {
           console.log("OOps from project");
           this.account = this.appCom.getAccount();
-          this.profile = this.appCom.getCandidateProfile();
-          this.appCom.setCurrentProfileWOPublish("candidate");
-          this.navCtrl.setRoot("ProfileCandidatePage", { account: this.account, candidateProfile: this.profile });
+          this.profile = this.appCom.getProjectProfile();
+          //this.appCom.setCurrentProfileWOPublish("candidate");
+          //this.navCtrl.setRoot("ProfileCandidatePage", { account: this.account, candidateProfile: this.profile });
           this.tempProfile = this.copyProjectProfile(this.profile);
           console.log(this.profile);
       }
