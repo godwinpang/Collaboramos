@@ -388,6 +388,14 @@ export class Firestore {
                 matched: matched
               });
             });
+          }).then(_ => {
+            var channelId = this.firestore.createId();
+            return this.firestore.doc(`channels/${channelId}`).set({
+              last_message_sent: "",
+              last_message_sender: "",
+              last_message_date: null,
+              members: [id1, id2]
+            });
           })
         }
     });
