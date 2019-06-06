@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewChildren, QueryList, Renderer} from '@angular
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { MyApp } from '../../app/app.component';
 import 'rxjs/Rx';
 
 import {
@@ -45,7 +46,7 @@ export class HomeCandidateComponent {
   frameworks = [];
   private profile: Candidate;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, private http: Http, public renderer: Renderer, public firestore: Firestore, private inAppBrowser: InAppBrowser) {
+  constructor(private appCom:MyApp, public navCtrl: NavController, public navParams: NavParams, public items: Items, private http: Http, public renderer: Renderer, public firestore: Firestore, private inAppBrowser: InAppBrowser) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
         return Math.min(Math.abs(offsetX) / (element.offsetWidth/4), 1);
@@ -112,7 +113,8 @@ export class HomeCandidateComponent {
   // Add new cards to our array
   addNewCards(count: number) {
     console.log(this.navParams.get('account'));
-    this.firestore.getCards(this.profile.id, count).then(map => {
+    console.log("From appCom " + this.appCom.getCandidateProfile())
+    this.firestore.getCards(this.appCom.getCandidateProfile().id, count).then(map => {
         console.log(map);
         map.forEach((value: any, key: any) => {
             this.cards.push(value)
@@ -127,6 +129,9 @@ export class HomeCandidateComponent {
     this.inAppBrowser.create(c.website);
   }
 
+  getImage(i: number) {
+    return "url(" + this.cards[i].image + ")";
+  }
 
   // http://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hex-in-javascript
   decimalToHex(d, padding) {
