@@ -59,9 +59,9 @@ export class ProfileCandidatePage {
       else {
           this.profile = this.copyCandidateProfile(navParams.get('candidateProfile'));
           this.tempProfile = this.copyCandidateProfile(navParams.get('candidateProfile'));
-      }
-    this.populateProfileFromAccount(this.profile, this.account);
-    this.populateProfileFromAccount(this.tempProfile, this.account);
+          //this.populateProfileFromAccount(this.profile, this.account);
+          //this.populateProfileFromAccount(this.tempProfile, this.account);
+      } 
   }
 
   copyCandidateProfile(profile: Candidate): Candidate {

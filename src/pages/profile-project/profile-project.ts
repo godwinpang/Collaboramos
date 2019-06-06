@@ -56,9 +56,9 @@ export class ProfileProjectPage {
       else {
           this.profile = this.copyProjectProfile(navParams.get('projectProfile'));
           this.tempProfile = this.copyProjectProfile(navParams.get('projectProfile'));
+          //this.populateProfileFromAccount(this.profile, this.account);
+          //this.populateProfileFromAccount(this.tempProfile, this.account);
       }
-    this.populateProfileFromAccount(this.profile, this.account);
-    this.populateProfileFromAccount(this.tempProfile, this.account);
   }
 
   copyProjectProfile(profile: Project): Project {
