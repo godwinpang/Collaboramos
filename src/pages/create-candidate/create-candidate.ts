@@ -61,13 +61,13 @@ export class CreateCandidatePage {
   processWebImage(event) {
     let reader = new FileReader();
     reader.onload = (readerEvent) => {
-      let imageData = (readerEvent.target as any).result;
-      this.image = imageData;
-    };
-    let imageD = event.target.files[event.target.files.length - 1];
-    this.candidate.image = imageD;
-    reader.readAsDataURL(event.target.files[event.target.files.length - 1]);
-    this.hasPicture = true;
+        let imageData = (readerEvent.target as any).result;
+        this.image = imageData;
+        let imageD = event.target.files[0];
+        this.candidate.image = imageD;
+        this.hasPicture = true;
+      };
+      reader.readAsDataURL(event.target.files[0]);
   }
 
   getProfileImageStyle() {
