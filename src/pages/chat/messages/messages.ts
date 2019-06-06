@@ -91,7 +91,17 @@ export class MessagesPage {
       console.log(this.navParams);
       //get channel id??
       this.user._id= this.navParams.get('id');
-      this.messages = this.firestore.getMessagesForChannel("eYwcAELbXc0Xbs93sBws").valueChanges();
+      if(this.navParams.get('params').currentProfile == 'project'){
+        this.user.username = this.navParams.get('params').data.projectProfile.id;
+        this.user.pic = this.navParams.get('params').data.projectProfile.image;
+        console.log(this.user.pic);
+      }else{
+        this.user.username = this.navParams.get('params').data.candidateProfile.id;
+        this.user.pic = this.navParams.get('params').data.candidateProfile.image;
+        console.log(this.user.pic);
+      }
+      this.channel = this.navParams.get('channel_id');
+      this.messages = this.firestore.getMessagesForChannel(this.channel).valueChanges();
     this.messageForm = formBuilder.group({
       message: new FormControl('')
     });
@@ -109,9 +119,9 @@ export class MessagesPage {
 
       const messageData =
         {
-          channel_id: "eYwcAELbXc0Xbs93sBws",
+          channel_id: this.channel,
           sender_id: this.user._id,
-          sender_name: 'whatever',
+          sender_name: this.user.username,
           message: message,
           message_date: null
           /*date: new Date(),
