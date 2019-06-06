@@ -6,22 +6,24 @@
     </div>
   </div>
   <form (submit)="doLogin()" class="form">
-    <ion-list>
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="credentials.email" name="email"></ion-input>
-      </ion-item>
+    <div class="middle">
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="email" [(ngModel)]="credentials.email" name="email"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
-      </ion-item>
-    </ion-list>
+        <ion-item>
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
     <div class="btn-container" *ngIf="showFooter">
-      <button ion-button color="primary" type="submit" size="large" full class="login-btn">
+      <button ion-button color="primary" type="submit" size="large" full class="center-btn login-btn">
         Login
       </button>
-      <button ion-button color="light" type="button" size="large" full class="cancel-btn" (click)="cancel()">
+      <button ion-button color="light" type="button" size="large" full class="center-btn cancel-btn" (click)="cancel()">
         Cancel
       </button>
     </div>

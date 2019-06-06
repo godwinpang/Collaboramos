@@ -6,6 +6,7 @@ import { MainPage } from '../';
 import { MyApp } from '../../app/app.component';
 
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { access } from 'fs';
 
 @IonicPage()
 @Component({
@@ -31,7 +32,9 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private appCom: MyApp,
     public keyboard: Keyboard
-  ) { }
+  ) {
+    // keyboard.disableScroll(false);
+  }
 
   showListener() {
     console.log('keyboard visible');
@@ -96,10 +99,14 @@ export class LoginPage {
       params['candidateProfile'] = candidateProfile;
       this.appCom.setCandidateProfile(candidateProfile);
     }).then(_ => {
-      if (params['currentProfile'] == 'candidate') {
-        return this.firestore.resetQueriedList(params['account'].candidate_ref);
-      } else {
-        return this.firestore.resetQueriedList(params['account'].project_ref);
+      let acc = params['account'];
+      if (acc.candidate_ref != null) {
+        return this.firestore.resetQueriedList(acc.candidate_ref);
+      }
+    }).then(_ => {
+      let acc = params['account'];
+      if (acc.project_ref != null) {
+        return this.firestore.resetQueriedList(acc.project_ref);
       }
     }).then( _ => {
       params['currentProfile'] = this.getSelectedProfile(params);

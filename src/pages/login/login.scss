@@ -1,6 +1,7 @@
 page-login {
     .content {
         position: relative;
+        text-align: center;
     }
 
     .splash-info {
@@ -10,24 +11,16 @@ page-login {
     }
 
     .btn-container {
-        bottom: 0;
-        position: absolute;
+        min-height: 20%;
         width: 100%;
+        margin-top: 11.5em;
     }
 
-    .cancel-btn {
-        margin-bottom: -3px;
-    }
-
-    .login-btn {
-        margin-bottom: -3px;
+    .center-btn {
+        margin: auto;
     }
 
     button {
         left: 0;
-    }
-
-    .scroll-content {
-        padding-bottom: 0 !important;
     }
 }
