@@ -188,8 +188,12 @@ export class Firestore {
   }
 
   // Delete Candidate
-  deleteCandidateProfile(id: string): Promise<void> {
-    return this.firestore.collection('candidate_profiles').doc(id).delete();
+  deleteCandidateProfile(accountId: string, candidateId: string): Promise<void> {
+    return this.firestore.collection('candidate_profiles').doc(candidateId).delete().then(_ => {
+      return this.firestore.collection('accounts').doc(accountId).update({
+        candidate_ref: null
+      });
+    });
   }
 
   // Project Profile CRUD
@@ -292,9 +296,13 @@ export class Firestore {
   }
 
   // Delete Profile
-  deleteProjectProfile(id: string): Promise<void> {
+  deleteProjectProfile(accountId: string, projectId: string): Promise<void> {
     // Returns promise of success/failure for deleting the project document on Firestore
-    return this.firestore.doc(`project_profiles/${id}`).delete();
+    return this.firestore.doc(`project_profiles/${projectId}`).delete().then(_ => {
+      return this.firestore.collection('accounts').doc(accountId).update({
+        project_ref: null
+      });
+    });
   }
 
   // Channel CRUD
