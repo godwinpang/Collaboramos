@@ -146,7 +146,7 @@ export class CreateProjectPage {
       }
     }).then(candidateProfile => {
       params['candidateProfile'] = candidateProfile;
-      this.appCom.setCandidateProfile = candidateProfile;
+      this.appCom.setCandidateProfile(candidateProfile);
     }).then(_ => {
       params['currentProfile'] = 'project';
       loading.dismiss();
