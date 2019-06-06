@@ -155,7 +155,7 @@ export class HomeCandidateComponent {
   }
 
   clickWebsite(c: any) {
-    this.inAppBrowser.create(c.website);
+    this.inAppBrowser.create(c.website, "_system");
   }
 
   getImage(i: number) {
