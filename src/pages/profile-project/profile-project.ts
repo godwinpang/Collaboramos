@@ -160,7 +160,7 @@ export class ProfileProjectPage {
   }
 
   presentWebsite() {
-    this.inAppBrowser.create(this.profile.website);
+    this.inAppBrowser.create(this.profile.website, "_system");
   }
 
   presentPrompt(type: string){
