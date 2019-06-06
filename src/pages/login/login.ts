@@ -31,7 +31,9 @@ export class LoginPage {
     private loadingCtrl: LoadingController,
     private appCom: MyApp,
     public keyboard: Keyboard
-  ) { }
+  ) {
+    // keyboard.disableScroll(false);
+  }
 
   showListener() {
     console.log('keyboard visible');
