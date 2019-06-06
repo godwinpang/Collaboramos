@@ -181,7 +181,7 @@ export class MyApp {
   }
 
   public deleteProject() {
-    this.firestore.deleteProjectProfile(this.project.id);
+    this.firestore.deleteProjectProfile(this.account.id, this.project.id);
     if (this.candidate != null) {
       this.setCurrentProfile("project");
     } else {
@@ -192,7 +192,7 @@ export class MyApp {
   }
 
   public deleteCandidate() {
-    this.firestore.deleteCandidateProfile(this.candidate.id);
+    this.firestore.deleteCandidateProfile(this.account.id, this.candidate.id);
     if (this.project != null) {
       this.setCurrentProfile("project");
     } else {
