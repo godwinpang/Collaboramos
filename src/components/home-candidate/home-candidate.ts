@@ -147,6 +147,7 @@ export class HomeCandidateComponent {
           map.forEach((value: any, key: any) => {
               this.cards.push(value)
               this.tags.push(value.skills)
+              this.frameworks.push(value.frameworks)
               console.log(value)
 
           })
