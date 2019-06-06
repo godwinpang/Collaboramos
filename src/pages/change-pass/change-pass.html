@@ -6,26 +6,29 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Change Password</ion-title>
+    <ion-title>Change The Password</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list inset>
+  <form [formGroup]="changePassForm" (submit)="validateAndChange()" class="form">
+    <ion-list inset>
+      <ion-item>
+        <ion-input type="password" placeholder = "Enter New Password" formControlName="newPass"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input type="password" placeholder = "Enter New Password" [(ngModel)]="credentials.newPass" name="new pass"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder = "Confirm New Password" formControlName="confirmPass"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input type="password" placeholder = "Confirm New Password" [(ngModel)]="credentials.confirmNewPass" name="confirm new pass"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder = "Enter Current Password" formControlName="currPass"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input type="password" placeholder = "Enter Current Password" [(ngModel)]="credentials.currPass" name="curr pass"></ion-input>
-    </ion-item>
-
-    <button ion-button color="primary" type="submit" block>Submit</button>
-  </ion-list>
+      <button ion-button color="primary" type="submit" style="margin-top: 30px;" size="large" full [disabled]="!changePassForm.valid">
+        Submit
+      </button>
+    </ion-list>
+  </form>
 
 </ion-content>

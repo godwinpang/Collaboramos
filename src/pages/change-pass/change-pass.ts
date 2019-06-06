@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FirebaseApp } from 'angularfire2';
+import { Auth } from '../../providers/auth/auth'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the ChangePassPage page.
@@ -14,20 +17,47 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'change-pass.html',
 })
 export class ChangePassPage {
-  credentials: { newPass: string, confirmNewPass: string, currPass: string } = {
-    newPass: '',
-    confirmNewPass: '',
-    currPass: ''
-  };
+  public changePassForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private auth: Auth,
+              public toastCtrl: ToastController,
+              formBuilder: FormBuilder) {
+    this.changePassForm = formBuilder.group({
+      newPass: ['', Validators.required],
+      confirmPass: ['', Validators.required],
+      currPass: ['', Validators.required],
+    });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChangePassPage');
+    // console.log('ionViewDidLoad ChangePassPage');
   }
 
-  validate() {
-    console.log(this.credentials.newPass + ", " + this.credentials.confirmNewPass + ", " + this.credentials.currPass);
+  validateAndChange() {
+    const newPass = this.changePassForm.value.newPass;
+    const confirmPass = this.changePassForm.value.confirmPass;
+    const currPass = this.changePassForm.value.currPass;
+
+    if(newPass == confirmPass) {
+      this.auth.updatePass(newPass).then(() => {
+        console.log("password updated successfully");
+        let toast = this.toastCtrl.create({
+          message: `New password has been updated successfully!`,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+        this.navCtrl.pop();
+      }).catch(() => {
+        let toast = this.toastCtrl.create({
+          message: `Please try updating your password again!`,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      });
+    }
   }
 }

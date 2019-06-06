@@ -31,7 +31,7 @@ export class MyApp {
     {title: 'Create Candidate', component: 'CreateCandidatePage'},
     {title: 'Account Settings', component: 'SettingsPage'},
     {title: 'Logout', component: 'WelcomePage'},
-
+    {title: 'Change Password', component: 'ChangePassPage'},
     {title: 'ProfileProject', component: 'ProfileProjectPage'},
     {title: 'ProfileCandidate', component: 'ProfileCandidatePage'},
     {title: 'Chats', component: 'ChatsPage'},

@@ -11,15 +11,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-list inset>
-    <ion-item>
-      <ion-input type = "text" placeholder = "Enter New Email" [(ngModel)]="credentials.newEmail" name="new email"></ion-input>
-    </ion-item>
+  <form [formGroup]="changeEmailForm" (submit)="validateAndChange()" class="form">
+    <ion-list inset>
+      <ion-item>
+        <ion-input type="text" placeholder = "Enter New Email" formControlName="newEmail"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input type = "password" placeholder = "Enter Password" [(ngModel)]="credentials.currPass" name="current pass"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder = "Enter Current Password" formControlName="currPass"></ion-input>
+      </ion-item>
 
-    <button ion-button color="primary" type="submit" block (click) = "validate()">Submit</button>
-  </ion-list>
+      <button ion-button color="primary" style="margin-top: 30px;" type="submit" size="large" full [disabled]="!changeEmailForm.valid">
+        Submit
+      </button>
+    </ion-list>
+  </form>
+
 </ion-content>

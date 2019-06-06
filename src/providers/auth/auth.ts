@@ -23,4 +23,12 @@ export class Auth {
     logout() {
         return this.afAuth.auth.signOut();
     }
+
+    updatePass(newPass) {
+        return this.user.updatePassword(newPass);
+    }
+
+    updateEmail(newEmail) {
+        return this.user.updateEmail(newEmail);
+    }
 }

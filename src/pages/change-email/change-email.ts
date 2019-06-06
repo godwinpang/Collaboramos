@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Auth } from '../../providers/auth/auth'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the ChangeEmailPage page.
@@ -14,21 +16,41 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'change-email.html',
 })
 export class ChangeEmailPage {
-  credentials: { newEmail: string, currPass: string } = {
-    newEmail: '',
-    currPass: ''
-  };
+  public changeEmailForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private auth: Auth,
+              public toastCtrl: ToastController,
+              formBuilder: FormBuilder) {
+    this.changeEmailForm = formBuilder.group({
+      newEmail: ['', Validators.required],
+      currPass: ['', Validators.required]
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ChangeEmailPage');
-  }
-
-  validate() {
+  validateAndChange() {
     //check that everything okay (should go somewhere else?)
-    //this.navCtrl.setRoot("WelcomePage");
-    console.log(this.credentials.newEmail + ", " + this.credentials.currPass);
+    const newEmail = this.changeEmailForm.value.newEmail;
+    const currPass = this.changeEmailForm.value.currPass;
+    console.log(newEmail);
+
+    this.auth.updateEmail(newEmail).then(() => {
+        console.log("email updated successfully");
+        let toast = this.toastCtrl.create({
+          message: `New email has been updated successfully!`,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+        this.navCtrl.pop();
+      }).catch(() => {
+        let toast = this.toastCtrl.create({
+          message: `Please try updating your email again!`,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      });
   }
 }
