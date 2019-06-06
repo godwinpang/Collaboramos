@@ -88,8 +88,13 @@ export class ChatsPage {
 
   viewMessages(chat) {
     console.log(this.navParams);
-    this.navCtrl.push('MessagesPage', { id: this.profileId, channel_id: chat.id, 
-      params: this.navParams});
+    this.navCtrl.push('MessagesPage', { 
+      id: this.profileId, 
+      channel_id: chat.id, 
+      params: this.navParams, 
+      otherImage: this.images.get(this.idToChat.get(this.otherId)),
+      otherName: this.names.get(this.idToChat.get(this.otherId))
+    });
   }
 
   getImage(chat){
