@@ -148,11 +148,13 @@ export class HomeCandidateComponent {
               this.cards.push(value)
               this.tags.push(value.skills)
               this.frameworks.push(value.frameworks)
-              console.log(value)
+              console.log("printing frameworks");
+              console.log(value.frameworks);
 
           })
       });
     }
+    console.log("frameworks" + this.frameworks)
   }
 
   clickWebsite(c: any) {
