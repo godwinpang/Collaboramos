@@ -182,12 +182,22 @@ export class MyApp {
 
   public deleteProject() {
     this.firestore.deleteProjectProfile(this.project.id);
+    if (this.candidate != null) {
+      this.setCurrentProfile("project");
+    } else {
+      this.setCurrentProfile("");
+    }
     this.project = null;
     this.projectRef = null;
   }
 
   public deleteCandidate() {
     this.firestore.deleteCandidateProfile(this.candidate.id);
+    if (this.project != null) {
+      this.setCurrentProfile("project");
+    } else {
+      this.setCurrentProfile("");
+    }
     this.candidate = null;
     this.candidateRef = null;
   }
