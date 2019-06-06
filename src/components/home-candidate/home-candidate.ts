@@ -62,7 +62,11 @@ export class HomeCandidateComponent {
 
     this.profile = navParams.get("candidateProfile") 
     this.cards = [];
-    this.addNewCards(3);
+    try {
+      this.addNewCards(3);
+    } catch(e) {
+        console.log(e);
+    }
 
   }
 
@@ -101,7 +105,11 @@ export class HomeCandidateComponent {
   voteUp(like: boolean) {
     let removedCard = this.cards.pop();
     if(this.cards.length <= 2) {
-      this.addNewCards(5);
+      try {
+        this.addNewCards(5);
+      } catch(e) {
+        console.log(e)
+      }
     }
     if (like) {
         this.firestore.updateMatches(this.profile.id, this.profile.image, removedCard.id, removedCard.image);
@@ -112,17 +120,24 @@ export class HomeCandidateComponent {
 
   // Add new cards to our array
   addNewCards(count: number) {
-    console.log(this.navParams.get('account'));
-    console.log("From appCom " + this.appCom.getCandidateProfile())
-    this.firestore.getCards(this.appCom.getCandidateProfile().id, count).then(map => {
-        console.log(map);
-        map.forEach((value: any, key: any) => {
-            this.cards.push(value)
-            this.tags.push(value.skills)
-            console.log(value)
+    //console.log(this.navParams.get('account'));
+    //console.log("From appCom " + this.appCom.getCandidateProfile())
+    //console.log(this.appCom.getCandidateProfile());
+    //console.log(this.profile.id);
+    //console.log(this.navParams.get('account'));
+    console.log("hello");
+    console.log(this.appCom.getCandidateProfile().id);
+    if(this.navParams.get('account').candidate_ref === null) { console.log("hello"); } else {
+      this.firestore.getCards(this.appCom.getCandidateProfile().id, count).then(map => {
+          console.log(map);
+          map.forEach((value: any, key: any) => {
+              this.cards.push(value)
+              this.tags.push(value.skills)
+              console.log(value)
 
-        })
-    })
+          })
+      });
+    }
   }
 
   clickWebsite(c: any) {
