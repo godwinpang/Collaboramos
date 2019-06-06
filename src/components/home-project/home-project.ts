@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList, Renderer } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from '../../app/app.component';
@@ -57,7 +57,8 @@ export class HomeProjectComponent {
                 public renderer: Renderer, 
                 private firestore: Firestore,
                 private inAppBrowser: InAppBrowser,
-                private appCom: MyApp
+                private appCom: MyApp,
+                private toastCtrl: ToastController
                 ) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -74,7 +75,11 @@ export class HomeProjectComponent {
         console.log(this.navParams.get('account'));
         this.profile = this.navParams.get('projectProfile');
         this.cards = [];
-        this.addNewCards(3);
+        try {
+            this.addNewCards(3);
+        } catch(e) {
+            console.log(e);
+        }
 
     }
 
@@ -128,7 +133,11 @@ export class HomeProjectComponent {
         let removedCard = this.cards.pop();
 
         if (this.cards.length <= 2) {
-            this.addNewCards(5);
+            try {
+                this.addNewCards(5);
+            } catch(e) {
+                console.log(e);
+            }
             console.log("Voted on cards and added");
         }
 
@@ -136,27 +145,48 @@ export class HomeProjectComponent {
             console.log("profile " + this.profile.id);
             console.log("other " + removedCard.id);
             this.firestore.updateMatches(this.profile.id, this.profile.image, removedCard.id, removedCard.image);
+            let toast = this.toastCtrl.create({
+                message: "You liked " + removedCard.name,
+                duration: 1500,
+                position: 'bottom'
+            });
+            toast.present();
         } else {
           this.recentCard = 'You disliked: ' + removedCard.name;
+          let toast = this.toastCtrl.create({
+            message: "You disliked " + removedCard.name,
+            duration: 1500,
+            position: 'bottom'
+          });
+          toast.present();
         }
+
+
     }
 
     // Add new cards to our array
     addNewCards(count: number) {
-        console.log("Added new cards");
+        //console.log("Added new cards");
+        //console.log(this.navParams.get('account'));
+        //console.log(this.profile)()
+        //console.log("From appCom " + this.appCom.getProjectProfile())
+        if(this.navParams.get('account') == undefined || this.navParams.get('account') == null){
+            return;
+        }
         console.log(this.navParams.get('account'));
-        console.log(this.profile);
-        console.log("From appCom " + this.appCom.getProjectProfile())
-
-        this.firestore.getCards(this.appCom.getProjectProfile().id, count).then(map => {
-            map.forEach((value: any, key: any) => {
-                this.cards.push(value)
-                this.tags.push(value.skills)
-                console.log("key: " + key)
-                console.log("value: " + value);
-
-            })
-        })
+        if(this.navParams.get('account').project_ref === null) {return; } else {
+            this.firestore.getCards(this.appCom.getProjectProfile().id, count).then(map => {
+                console.log(map);
+                map.forEach((value: any, key: any) => {
+                    this.cards.push(value)
+                    this.tags.push(value.skills)
+                    console.log(value)
+      
+                })
+            }).catch(_ => {
+                console.log("disaster");
+            });
+          }
     }
 
     getImage(i: number) {

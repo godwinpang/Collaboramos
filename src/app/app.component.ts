@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Nav, Platform, MenuController, AlertController, Events } from 'ionic-angular';
+import { Nav, Platform, MenuController, AlertController, Events, ToastController } from 'ionic-angular';
 
 import { FirstRunPage } from '../pages';
 import { Settings, Auth } from '../providers';
@@ -82,7 +82,8 @@ export class MyApp {
               private alertCtrl: AlertController,
               private firestore: Firestore,
               private events: Events,
-              private auth: Auth) {
+              private auth: Auth,
+              private toastCtrl: ToastController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -181,6 +182,19 @@ export class MyApp {
   }
 
   public deleteProject() {
+    if (!this.candidate) {
+      console.log("not deleting");
+      let toast = this.toastCtrl.create({
+        message: 'Cannot delete profile when you only have one remaining',
+        duration: 2000,
+        position: 'bottom'
+      });
+
+      toast.present();
+      return
+    }
+
+    console.log("going to delete");
     this.firestore.deleteProjectProfile(this.account.id, this.project.id);
     if (this.candidate != null) {
       this.setCurrentProfile("project");
@@ -192,6 +206,18 @@ export class MyApp {
   }
 
   public deleteCandidate() {
+    if (!this.project) {
+      console.log("not deleting");
+      let toast = this.toastCtrl.create({
+        message: 'Cannot delete profile when you only have one remaining',
+        duration: 2000,
+        position: 'bottom'
+      });
+
+      toast.present();
+      return 
+    }
+    console.log("going to delete");
     this.firestore.deleteCandidateProfile(this.account.id, this.candidate.id);
     if (this.project != null) {
       this.setCurrentProfile("project");
