@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList, Renderer } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from '../../app/app.component';
@@ -57,7 +57,8 @@ export class HomeProjectComponent {
                 public renderer: Renderer, 
                 private firestore: Firestore,
                 private inAppBrowser: InAppBrowser,
-                private appCom: MyApp
+                private appCom: MyApp,
+                private toastCtrl: ToastController
                 ) {
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -136,9 +137,23 @@ export class HomeProjectComponent {
             console.log("profile " + this.profile.id);
             console.log("other " + removedCard.id);
             this.firestore.updateMatches(this.profile.id, this.profile.image, removedCard.id, removedCard.image);
+            let toast = this.toastCtrl.create({
+                message: "You liked " + removedCard.name,
+                duration: 1500,
+                position: 'bottom'
+            });
+            toast.present();
         } else {
           this.recentCard = 'You disliked: ' + removedCard.name;
+          let toast = this.toastCtrl.create({
+            message: "You disliked " + removedCard.name,
+            duration: 1500,
+            position: 'bottom'
+          });
+          toast.present();
         }
+
+
     }
 
     // Add new cards to our array
