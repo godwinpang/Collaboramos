@@ -38,7 +38,6 @@ export class ChangePassPage {
   validateAndChange() {
     const newPass = this.changePassForm.value.newPass;
     const confirmPass = this.changePassForm.value.confirmPass;
-    const currPass = this.changePassForm.value.currPass;
 
     if(newPass == confirmPass) {
       this.auth.updatePass(newPass).then(() => {
@@ -58,6 +57,13 @@ export class ChangePassPage {
         });
         toast.present();
       });
+    } else {
+      let toast = this.toastCtrl.create({
+        message: `New passwords don't match!`,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
     }
   }
 }

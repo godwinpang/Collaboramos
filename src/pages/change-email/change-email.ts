@@ -32,7 +32,6 @@ export class ChangeEmailPage {
   validateAndChange() {
     //check that everything okay (should go somewhere else?)
     const newEmail = this.changeEmailForm.value.newEmail;
-    const currPass = this.changeEmailForm.value.currPass;
     console.log(newEmail);
 
     this.auth.updateEmail(newEmail).then(() => {
