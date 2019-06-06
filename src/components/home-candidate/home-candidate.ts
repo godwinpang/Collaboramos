@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList, Renderer} from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from '../../app/app.component';
@@ -46,7 +46,7 @@ export class HomeCandidateComponent {
   frameworks = [];
   private profile: Candidate;
 
-  constructor(private appCom:MyApp, public navCtrl: NavController, public navParams: NavParams, public items: Items, private http: Http, public renderer: Renderer, public firestore: Firestore, private inAppBrowser: InAppBrowser) {
+  constructor(private toastCtrl: ToastController, private appCom:MyApp, public navCtrl: NavController, public navParams: NavParams, public items: Items, private http: Http, public renderer: Renderer, public firestore: Firestore, private inAppBrowser: InAppBrowser) {
     this.stackConfig = {
       throwOutConfidence: (offsetX, offsetY, element) => {
         return Math.min(Math.abs(offsetX) / (element.offsetWidth/4), 1);
@@ -113,9 +113,23 @@ export class HomeCandidateComponent {
     }
     if (like) {
         this.firestore.updateMatches(this.profile.id, this.profile.image, removedCard.id, removedCard.image);
+        
+        let toast = this.toastCtrl.create({
+            message: "You liked " + removedCard.name,
+            duration: 1500,
+            position: 'bottom'
+        });
+        toast.present();
     } else {
       this.recentCard = 'You disliked: ' + removedCard.name;
+      let toast = this.toastCtrl.create({
+        message: "You disliked " + removedCard.name,
+        duration: 1500,
+        position: 'bottom'
+      });
+      toast.present();
     }
+
   }
 
   // Add new cards to our array
