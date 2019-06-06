@@ -445,7 +445,7 @@ export class Firestore {
       var list: string[];
       list = doc.data().queried_list;
       list.sort;
-      //console.log(list);
+      console.log(list);
       //var documents: {[key: string]: DocumentData;} = {}; 
       var documents = [];
       if (doc.data().list_type == "project") {
@@ -460,7 +460,7 @@ export class Firestore {
                 isQueried = true;
               }
             });
-            if (!isQueried){
+            if (!isQueried && doc.data().is_visible){
               //console.log(doc.data());
               documents.push(doc.data());
             }            
@@ -478,7 +478,7 @@ export class Firestore {
                 isQueried = true;
               }
             });
-            if (!isQueried){
+            if (!isQueried && doc.data().is_visible){
               //console.log(doc.data());
               documents.push(doc.data());
             }            
@@ -493,12 +493,13 @@ export class Firestore {
       //console.log(documents);
       var newDocuments = documentsAndList[0].splice(0, amount);
       //console.log(amount);
-      //console.log(documentsAndList[0]);
+      
+      //console.log(newDocuments);
       newDocuments.forEach(doc => {
         documentsAndList[1].push(doc.id);
       })
 
-      //console.log(documentsAndList[1]);
+      //console.log(newDocuments);
       this.firestore.collection('match_queries').doc(id).update({
          queried_list: documentsAndList[1]
       })
