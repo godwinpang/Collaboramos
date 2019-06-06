@@ -23,7 +23,7 @@
 
 	<div *ngFor="let message of messages | async" class="message-wrapper" on-hold="onMessageHold($event, $index, message)">
 		<div *ngIf="user._id !== message.sender_id">
-			<img (click)="viewProfile(message)" class="profile-pic left" [src]="toUser.pic" onerror="onProfilePicError(this)" />
+			<img class="profile-pic left" [src]="toUser.pic" />
 			<div class="chat-bubble left slide-left">
 
 				<div class="message" autolinker>
@@ -39,7 +39,7 @@
 
 		<div *ngIf="user._id === message.sender_id">
 
-			<img (click)="viewProfile(message)" class="profile-pic right" [src]="user.pic" onerror="onProfilePicError(this)" />
+			<img class="profile-pic right" [src]="user.pic"/>
 
 			<div class="chat-bubble right slide-right">
 
