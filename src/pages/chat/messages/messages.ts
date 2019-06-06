@@ -99,8 +99,12 @@ export class MessagesPage {
         this.user.pic = this.navParams.get('params').data.candidateProfile.image;
       }
       this.channel = this.navParams.get('channel_id');
-      this.toUser.username = this.navParams.get('otherName');
-      this.toUser.pic = this.navParams.get('otherImage');
+      this.toUser.username = this.navParams.get('otherNames').get(
+        this.navParams.get('channel')
+      );
+      this.toUser.pic = this.navParams.get('otherImages').get(
+        this.navParams.get('channel')
+      );
       this.messages = this.firestore.getMessagesForChannel(this.channel).valueChanges();
     this.messageForm = formBuilder.group({
       message: new FormControl('')

@@ -91,9 +91,12 @@ export class ChatsPage {
     this.navCtrl.push('MessagesPage', { 
       id: this.profileId, 
       channel_id: chat.id, 
+      channel: chat,
       params: this.navParams, 
-      otherImage: this.images.get(this.idToChat.get(this.otherId)),
-      otherName: this.names.get(this.idToChat.get(this.otherId))
+      otherIds: this.matchesKeys,
+      otherImages: this.images,
+      otherNames: this.names,
+      idToChat: this.idToChat
     });
   }
 
