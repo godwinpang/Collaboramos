@@ -1,6 +1,6 @@
 # Collaboramos
 
-![Collaboramos Logo](/resources/icon.png)
+<img src="/resources/icon.png" width="400" />
 
 ## Install Instructions
 
