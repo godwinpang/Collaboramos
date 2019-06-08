@@ -197,7 +197,7 @@ export class MyApp {
     console.log("going to delete");
     this.firestore.deleteProjectProfile(this.account.id, this.project.id);
     if (this.candidate != null) {
-      this.setCurrentProfile("project");
+      this.setCurrentProfile("candidate");
     } else {
       this.setCurrentProfile("");
     }
