@@ -1,6 +1,6 @@
 # Collaboramos
 
-<img src="/resources/icon.png" width="400" />
+<img src="/resources/icon.png" width="300" style="text-align: center;" />
 
 ## Install Instructions
 
