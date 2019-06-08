@@ -1,5 +1,7 @@
 # Collaboramos
 
+![Collaboramos Logo](/resources/icon.png)
+
 ## Install Instructions
 
 - Install lastest version of `chrome` (version 75 minimum)
