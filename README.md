@@ -1,79 +1,18 @@
 # Collaboramos
-## The Ionic Super Starter 🎮
 
-<img src="https://user-images.githubusercontent.com/236501/32385619-bddac0ac-c08c-11e7-9ee4-9c892197191f.png" width="400" />
+## Install Instructions
 
-The Ionic Super Starter is a batteries-included starter project for Ionic apps
-complete with pre-built pages, providers, and best practices for Ionic
-development.
-
-The goal of the Super Starter is to get you from zero to app store faster than
-before, with a set of opinions from the Ionic team around page layout,
-data/user management, and project structure.
-
-The way to use this starter is to pick and choose the various page types you
-want use, and remove the ones you don't. If you want a blank slate, this
-starter isn't for you (use the `blank` type instead).
-
-One of the big advances in Ionic was moving from a rigid route-based navigation
-system to a flexible push/pop navigation system modeled off common native SDKs.
-We've embraced this pattern to provide a set of reusable pages that can be
-navigated to anywhere in the app. Take a look at the [Settings
-page](https://github.com/ionic-team/starters/blob/master/ionic-angular/official/super/src/pages/settings/settings.html)
-for a cool example of a page navigating to itself to provide a different UI
-without duplicating code.
-
-## Table of Contents
-
-1. [Getting Started](#getting-started)
-2. [Pages](#pages)
-3. [Providers](#providers)
-
-## <a name="getting-started"></a>Getting Started
-
-To test this starter out, install the latest version of the Ionic CLI and run:
-
-```bash
-ionic start mySuperApp super
-```
-
-## Pages
-
-The Super Starter comes with a variety of ready-made pages. These pages help
-you assemble common building blocks for your app so you can focus on your
-unique features and branding.
-
-The app loads with the `FirstRunPage` set to `TutorialPage` as the default. If
-the user has already gone through this page once, it will be skipped the next
-time they load the app.
-
-If the tutorial is skipped but the user hasn't logged in yet, the Welcome page
-will be displayed which is a "splash" prompting the user to log in or create an
-account.
-
-Once the user is authenticated, the app will load with the `MainPage` which is
-set to be the `TabsPage` as the default.
-
-The entry and main pages can be configured easily by updating the corresponding
-variables in
-[src/pages/index.ts](https://github.com/ionic-team/starters/blob/master/ionic-angular/official/super/src/pages/index.ts).
-
-Please read the
-[Pages](https://github.com/ionic-team/starters/tree/master/ionic-angular/official/super/src/pages)
-readme, and the readme for each page in the source for more documentation on
-each.
-
-## Providers
-
-The Super Starter comes with some basic implementations of common providers.
-
-### User
-
-The `User` provider is used to authenticate users through its
-`login(accountInfo)` and `signup(accountInfo)` methods, which perform `POST`
-requests to an API endpoint that you will need to configure.
-
-### Api
-
-The `Api` provider is a simple CRUD frontend to an API. Simply put the root of
-your API url in the Api class and call get/post/put/patch/delete 
+- Install lastest version of `chrome` (version 75 minimum)
+- Install `git` and `npm`
+- Run `git clone https://github.com/godwinpang/Collaboramos.git` in directory of your choice
+- In that directory, change directory to `Collaboramos` (`cd Collaboramos`)
+- Now run these commands within `Collaboramos` directory
+    + `npm install`
+    + `ionic serve`
+- Then open `chrome`
+    - Visit the url `localhost:8100`
+    - Right-click anywhere on page and click on "Inspect" (or CTRL-SHIFT-I)
+    - Click on "Toggle Device Toolbar" in top-right of the DevTools (or CTRL-SHIFT-M)
+    - On the "Device Toolbar", click on the dropdown menu where it initially says `Responsive` and change it to `iPhone 6/7/8`
+        + If this option does not exist, reselect `Responsive` and change the width and height in the `Device Toolbar` to `375` and `667` respectively
+    - Make sure to refresh the page at this point (the reason is that Chrome sometimes doesn't change the User-Agent to iPhone 6/7/8 and instead keeps it as Android)
