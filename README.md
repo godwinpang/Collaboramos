@@ -37,7 +37,12 @@
 | test@candidate.com | 123123123 |
 | test@switch.com | 123123123 |
 
-* (to be created by testers)
+*to be created by testers
+
+## Known Bugs
+- Runtime errors may occur with an `ionic` error message. Please click `Close` on the top left corner. We guarantee that the functionality is still the same.
+- Don't swipe right on the candidate or project profile associated with the logged in account.
+- Don't switch profiles more than a couple times. This thins the stack of profiles to swipe on. If you do, then log out and log back in.
 
 ## In-Case of Crash
 - Stop the `ionic serve` execution (CTRL-C it)
