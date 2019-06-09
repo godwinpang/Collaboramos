@@ -34,21 +34,21 @@ export class ChangeEmailPage {
     console.log(newEmail);
 
     this.auth.updateEmail(newEmail).then(() => {
-        console.log("email updated successfully");
-        let toast = this.toastCtrl.create({
-          message: `New email has been updated successfully!`,
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
-        this.navCtrl.pop();
-      }).catch(() => {
-        let toast = this.toastCtrl.create({
-          message: `Please try updating your email again!`,
-          duration: 3000,
-          position: 'bottom'
-        });
-        toast.present();
+      console.log("email updated successfully");
+      let toast = this.toastCtrl.create({
+        message: `New email has been updated successfully!`,
+        duration: 3000,
+        position: 'bottom'
       });
+      toast.present();
+      this.navCtrl.pop();
+    }).catch(() => {
+      let toast = this.toastCtrl.create({
+        message: `Please try updating your email again!`,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+    });
   }
 }

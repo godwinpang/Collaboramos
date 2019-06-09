@@ -7,12 +7,15 @@
 ## Introduction
 "I have no experience in this" or "I don't know enough people to create a team" are often some of the major headaches that students face trying to find a project to work on or people to work with. Starting a project traditionally has been both time-consuming and stressful. On one hand, students looking for projects need to search for projects by joining several different clubs. On the other hand, people who have a good project idea need to ask around for people who are both able and willing to participate. Precious time is then lost through these tasks which could be used for developing the project. To solve this problem, `Collaboramos` has created an easy and efficient way to join projects and recruit people. Our app helps people join projects and gain experience, helps project managers gather people with sufficient ability and interest in the project, and enables communication between the two parties.
 
+## Video
+[Link!](https://www.youtube.com/watch?v=prjgAlCQuls)
+
 ## Requirements
 - Working Mac computer
 - Internet connection
 
 ## How to Install
-- Install lastest version of `chrome` (version 75 minimum)
+- Install latest version of `chrome` (version 75 minimum)
 - Install latest versions of `git` and `npm`
 - Install latest version of `ionic` using the command `npm install -g ionic`
 - Run `git clone https://github.com/godwinpang/Collaboramos.git` in directory of your choice
@@ -47,7 +50,6 @@
 - For other runtime errors, please click `Close` on the top left corner. We guarantee that the functionality is still the same.
 - Don't swipe right on the candidate or project profile associated with the logged in account.
 - Don't switch profiles more than a couple times. This thins the stack of profiles to swipe on. If you do, then log out and log back in.
-- 
 
 ## In-Case of Crash
 - Stop the `ionic serve` execution (CTRL-C it)
