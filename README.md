@@ -61,8 +61,8 @@
     - Make sure to refresh the page at this point (the reason is that Chrome sometimes doesn't change the User-Agent to iPhone 6/7/8 and instead keeps it as Android)
 
 ## Persons of Contact
-1. *Godwin Y Pang* -- Project Manager -- (858) 405-7190
-2. *"Thomas" Yanxi Tang* -- Database Specialist -- (626) 782-3104
+1. *Godwin Y Pang* -- Project Manager -- (858) 405-7190 -- gypang@ucsd.edu
+2. *"Thomas" Yanxi Tang* -- Database Specialist -- (626) 782-3104 - yat025@ucsd.edu
 
 ## Team
 - Project Manager -- *Godwin Y Pang*
