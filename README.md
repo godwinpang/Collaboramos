@@ -29,8 +29,8 @@
         + If this option does not exist, reselect `Responsive` and change the width and height in the `Device Toolbar` to `375` and `667` respectively
     - Make sure to refresh the page at this point (the reason is that Chrome sometimes doesn't change the User-Agent to iPhone 6/7/8 and instead keeps it as Android)
 
-## Test Account Credentials
-| **Profile Name** | **Password** |
+## Test Account Login Credentials
+| **Profile Email** | **Password** |
 |:-----------------|:-------------|
 | test@duplicateprofile.com | 123123123 |
 | test@project.com* | 123123123 |
