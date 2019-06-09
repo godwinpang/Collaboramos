@@ -44,6 +44,7 @@ export class MatchesPage {
       this.profileId = this.navParams.get('candidateProfile').id;
     }
     //console.log(id);
+    try {
     this.firestore.getMatchesFromProfile(this.profileId).valueChanges().subscribe( matches => {
       this.matchesKeys = Object.keys(matches.matched);
       this.matches = matches.matched;
@@ -62,7 +63,7 @@ export class MatchesPage {
       //console.log(this.matchesKeys);
       //console.log(this.matches);
       console.log(this.names);
-    });
+    });} catch {}
     
     //get names
     /*var i;
