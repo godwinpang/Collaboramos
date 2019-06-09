@@ -24,8 +24,7 @@ export class ChangeEmailPage {
               public toastCtrl: ToastController,
               formBuilder: FormBuilder) {
     this.changeEmailForm = formBuilder.group({
-      newEmail: ['', Validators.required],
-      currPass: ['', Validators.required]
+      newEmail: ['', Validators.required]
     });
   }
 

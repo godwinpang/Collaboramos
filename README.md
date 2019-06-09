@@ -36,6 +36,7 @@
 | test@project.com* | 123123123 |
 | test@candidate.com | 123123123 |
 | test@switch.com | 123123123 |
+| test@delete.com | 123123123 |
 | joe@boe.com | 123123123 |
 
 *to be created by testers
