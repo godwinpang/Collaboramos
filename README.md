@@ -42,9 +42,11 @@
 *to be created by testers
 
 ## Known Bugs
-- Runtime errors may occur with an `ionic` error message. Please click `Close` on the top left corner. We guarantee that the functionality is still the same.
+- Runtime errors may occur with an `ionic` error message when sending messages on the same build. That is, when accessing the app to two screens using the same `ionic serve` command. When testing, log out of the sender account, re-run the application using the instructions above, and log into the recipient account.
+- For other runtime errors, please click `Close` on the top left corner. We guarantee that the functionality is still the same.
 - Don't swipe right on the candidate or project profile associated with the logged in account.
 - Don't switch profiles more than a couple times. This thins the stack of profiles to swipe on. If you do, then log out and log back in.
+- 
 
 ## In-Case of Crash
 - Stop the `ionic serve` execution (CTRL-C it)
