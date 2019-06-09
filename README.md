@@ -13,7 +13,8 @@
 
 ## How to Install
 - Install lastest version of `chrome` (version 75 minimum)
-- Install `git` and `npm`
+- Install latest versions of `git` and `npm`
+- Install latest version of `ionic` using the command `npm install -g ionic`
 - Run `git clone https://github.com/godwinpang/Collaboramos.git` in directory of your choice
 
 ## How to Run
@@ -42,7 +43,7 @@
 *to be created by testers
 
 ## Known Bugs
-- Runtime errors may occur with an `ionic` error message when sending messages on the same build. That is, when accessing the app to two screens using the same `ionic serve` command. When testing, log out of the sender account, re-run the application using the instructions above, and log into the recipient account.
+- Runtime errors may occur with an `ionic` error message when sending messages on the same build. That is, when accessing the app to two screens using the same `ionic serve` command. To avoid this bug when, log out of the sender account, re-run the application using the instructions above, and log into the recipient account. Or use two separate computers with one instance of the app on each to send and receive messages in real-time.
 - For other runtime errors, please click `Close` on the top left corner. We guarantee that the functionality is still the same.
 - Don't swipe right on the candidate or project profile associated with the logged in account.
 - Don't switch profiles more than a couple times. This thins the stack of profiles to swipe on. If you do, then log out and log back in.
