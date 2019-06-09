@@ -48,6 +48,7 @@ export class ChatsPage {
     }
     //this.chats = this.firestore.getChannelsFromProfile(this.profileId).valueChanges();
     //get channels
+    try {
     this.firestore.getChannelsFromProfile(this.profileId).valueChanges().subscribe( chats => {
       this.chats = chats;
       //give mapping from otherId to chats/channel
@@ -59,6 +60,7 @@ export class ChatsPage {
         //console.log(this.names.get(chats[i]));
       }
       //get matches to get names
+      
       this.firestore.getMatchesFromProfile(this.profileId).valueChanges().subscribe( matches => {
         this.matchesKeys = Object.keys(matches.matched);
         this.matches = matches.matched;
@@ -83,7 +85,9 @@ export class ChatsPage {
         //console.log(this.names);
         //console.log(this.idToChat);
       });
-    });
+    }); } catch {}
+
+
   }
 
   viewMessages(chat) {

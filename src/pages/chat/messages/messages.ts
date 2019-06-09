@@ -92,10 +92,10 @@ export class MessagesPage {
       //get channel id??
       this.user._id= this.navParams.get('id');
       if(this.navParams.get('params').data.currentProfile == 'project'){
-        this.user.username = this.navParams.get('params').data.projectProfile.id;
+        this.user.username = this.navParams.get('params').data.projectProfile.name;
         this.user.pic = this.navParams.get('params').data.projectProfile.image;
       }else{
-        this.user.username = this.navParams.get('params').data.candidateProfile.id;
+        this.user.username = this.navParams.get('params').data.candidateProfile.name;
         this.user.pic = this.navParams.get('params').data.candidateProfile.image;
       }
       this.channel = this.navParams.get('channel_id');
